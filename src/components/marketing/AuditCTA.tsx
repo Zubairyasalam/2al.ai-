@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Globe, FileText, CheckCircle2, ShieldAlert } from "lucide-react";
+import siteConfig from "@/data/site-config.json";
 
 export default function AuditCTA() {
   const [url, setUrl] = useState("");
@@ -126,7 +127,7 @@ export default function AuditCTA() {
             {/* Left Headline */}
             <div className="lg:col-span-7 space-y-4 text-left">
               <h2 className="text-4xl md:text-5xl lg:text-[48px] font-black text-white leading-[1.15] tracking-tight">
-                Put your website to the <span className="italic text-cyan-400 font-extrabold font-serif">test</span>
+                {siteConfig.auditBannerTitle}
               </h2>
               <p className="text-zinc-400 text-base md:text-lg font-light max-w-lg leading-relaxed">
                 One compliance gap can expose your business to costly accessibility lawsuits. Scan your site instantly.

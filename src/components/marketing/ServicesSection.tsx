@@ -76,7 +76,7 @@ export default function ServicesSection() {
     {
       title: "Accessibility training & marketing materials",
       icon: (
-        <motion.div variants={bookIconVariants}>
+        <motion.div variants={bookIconVariants as any}>
           <BookOpen className="w-6 h-6 text-blue-600" />
         </motion.div>
       ),
@@ -93,7 +93,7 @@ export default function ServicesSection() {
     {
       title: "Unparalleled personal support",
       icon: (
-        <motion.div variants={headphonesIconVariants}>
+        <motion.div variants={headphonesIconVariants as any}>
           <Headphones className="w-6 h-6 text-indigo-600" />
         </motion.div>
       ),
@@ -110,7 +110,7 @@ export default function ServicesSection() {
     {
       title: "Comprehensive litigation support",
       icon: (
-        <motion.div variants={scaleIconVariants}>
+        <motion.div variants={scaleIconVariants as any}>
           <Scale className="w-6 h-6 text-violet-600" />
         </motion.div>
       ),
@@ -127,7 +127,7 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section className="py-24 bg-slate-50 relative overflow-hidden select-none">
+    <section className="pt-10 pb-24 bg-slate-50 relative overflow-hidden select-none">
       {/* Background soft blur visual assets */}
       <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-blue-100/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-violet-100/20 rounded-full blur-[120px] pointer-events-none" />
@@ -135,12 +135,12 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-6 sm:px-12 relative z-10">
         
         {/* Section Heading */}
-        <div className="max-w-3xl mb-16 space-y-4">
+        <div className="max-w-4xl mb-16 space-y-4">
           <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Unmatched Partnership Benefits</span>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-            Compliance Built on <span className="text-blue-600">Expertise & Support</span>
+            Compliance Built on <span className="text-blue-600 whitespace-nowrap">Expertise & Support</span>
           </h2>
-          <p className="text-slate-500 text-lg font-light leading-relaxed">
+          <p className="text-slate-700 text-lg font-normal leading-relaxed">
             We provide agencies, developers, and legal departments with all the assets, hands-on support, and compliance infrastructure needed to succeed.
           </p>
         </div>
@@ -155,7 +155,7 @@ export default function ServicesSection() {
               whileInView="animate"
               whileHover="hover"
               viewport={{ once: true }}
-              variants={cardVariants}
+              variants={cardVariants as any}
               className={`bg-white border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 shadow-sm cursor-pointer relative overflow-hidden ${svc.hoverBorder}`}
             >
               <div className="space-y-6">
@@ -176,14 +176,14 @@ export default function ServicesSection() {
                     <li key={bullet} className="flex items-start gap-3">
                       {/* Animated circular bullet indicator */}
                       <motion.div
-                        variants={bulletDotVariants(svc.dotColor)}
+                        variants={bulletDotVariants(svc.dotColor) as any}
                         className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-white" />
                       </motion.div>
                       {/* Animated bullet text */}
                       <motion.span
-                        variants={bulletTextVariants}
+                        variants={bulletTextVariants as any}
                         className="text-sm font-medium leading-relaxed"
                       >
                         {bullet}

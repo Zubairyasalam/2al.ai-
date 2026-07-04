@@ -3,8 +3,18 @@
 import { motion } from "framer-motion";
 import { Sparkles, Accessibility } from "lucide-react";
 import Link from "next/link";
+import siteConfig from "@/data/site-config.json";
+
+const colorMap = {
+  blue: { bg: "bg-blue-600", hover: "hover:bg-blue-700", shadow: "shadow-blue-500/10" },
+  purple: { bg: "bg-purple-600", hover: "hover:bg-purple-700", shadow: "shadow-purple-500/10" },
+  emerald: { bg: "bg-emerald-600", hover: "hover:bg-emerald-700", shadow: "shadow-emerald-500/10" },
+  indigo: { bg: "bg-indigo-600", hover: "hover:bg-indigo-700", shadow: "shadow-indigo-500/10" },
+  orange: { bg: "bg-orange-600", hover: "hover:bg-orange-700", shadow: "shadow-orange-500/10" },
+};
 
 export default function Hero() {
+  const theme = colorMap[siteConfig.primaryColor as keyof typeof colorMap] || colorMap.blue;
   return (
     <section className="relative min-h-[85vh] flex flex-col justify-between bg-white overflow-hidden py-12 px-6 sm:px-12">
       {/* Central Soft Blur Gradient Blob */}
@@ -78,7 +88,7 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-slate-950 mb-2 relative z-20"
         >
-          2all.ai
+          {siteConfig.brandName}
         </motion.h1>
 
         {/* Subtitle / Tagline */}
@@ -86,9 +96,9 @@ export default function Hero() {
           initial={{ y: 15, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-light text-slate-400 tracking-wide relative z-20"
+          className="text-2xl sm:text-3xl md:text-4xl font-light text-slate-400 tracking-wide relative z-20 px-4"
         >
-          Intelligence <span className="text-slate-900 font-medium">that scans</span>
+          {siteConfig.tagline}
         </motion.p>
 
         {/* Brief CTAs overlaid elegantly */}
@@ -98,18 +108,22 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.8 }}
           className="mt-8 flex gap-4 relative z-20"
         >
-          <Link
-            href="/register"
-            className="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-500/10 transition-all"
-          >
-            Start Free Scan
-          </Link>
-          <Link
-            href="#features"
-            className="px-6 py-3 rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-sm font-semibold transition-all"
-          >
-            Learn More
-          </Link>
+          {siteConfig.showTrialButton && (
+            <Link
+              href="/register"
+              className={`px-6 py-3 rounded-full ${theme.bg} ${theme.hover} text-white text-xs font-black shadow-md ${theme.shadow} transition-all uppercase tracking-wider`}
+            >
+              {siteConfig.trialButtonText}
+            </Link>
+          )}
+          {siteConfig.showDemoButton && (
+            <Link
+              href="#demo"
+              className="px-6 py-3 rounded-full border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-xs font-black transition-all uppercase tracking-wider"
+            >
+              {siteConfig.demoButtonText}
+            </Link>
+          )}
         </motion.div>
       </div>
 

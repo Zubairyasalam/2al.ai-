@@ -66,8 +66,7 @@ export default function BeyondCompliance() {
                 Beyond Legal Standards
               </span>
               <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight tracking-tight font-sans">
-                More than <br />
-                <span className="text-[#004bff]">compliance</span>
+                More than <span className="text-[#004bff]">compliance</span>
               </h2>
               <p className="text-slate-500 text-lg font-normal leading-relaxed font-sans">
                 Web accessibility is the right thing to do and good for business. Achieve real inclusion while driving growth.
@@ -95,7 +94,7 @@ export default function BeyondCompliance() {
                     strokeDashoffset: { repeat: Infinity, duration: 4, ease: "linear" }
                   }}
                   custom={0.2}
-                  variants={ringVariants}
+                  variants={ringVariants as any}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -115,7 +114,7 @@ export default function BeyondCompliance() {
                     strokeDashoffset: { repeat: Infinity, duration: 4, ease: "linear" }
                   }}
                   custom={0.4}
-                  variants={ringVariants}
+                  variants={ringVariants as any}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -135,7 +134,7 @@ export default function BeyondCompliance() {
                     strokeDashoffset: { repeat: Infinity, duration: 4, ease: "linear" }
                   }}
                   custom={0.6}
-                  variants={ringVariants}
+                  variants={ringVariants as any}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -150,7 +149,7 @@ export default function BeyondCompliance() {
                   fontWeight="bold"
                   textAnchor="middle"
                   custom={0.2}
-                  variants={labelVariants}
+                  variants={labelVariants as any}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -167,7 +166,7 @@ export default function BeyondCompliance() {
                   fontWeight="bold"
                   textAnchor="middle"
                   custom={0.4}
-                  variants={labelVariants}
+                  variants={labelVariants as any}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -184,7 +183,7 @@ export default function BeyondCompliance() {
                   fontWeight="bold"
                   textAnchor="middle"
                   custom={0.6}
-                  variants={labelVariants}
+                  variants={labelVariants as any}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}

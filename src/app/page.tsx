@@ -15,10 +15,17 @@ import SecuritySection from "@/components/marketing/SecuritySection";
 import PricingSection from "@/components/marketing/PricingSection";
 import CloseGapsBanner from "@/components/marketing/CloseGapsBanner";
 import Footer from "@/components/marketing/Footer";
+import DemoModal from "@/components/marketing/DemoModal";
+import SolutionsMegamenu from "@/components/marketing/SolutionsMegamenu";
+import CompanyMegamenu from "@/components/marketing/CompanyMegamenu";
+import PartnersMegamenu from "@/components/marketing/PartnersMegamenu";
+import ResourcesMegamenu from "@/components/marketing/ResourcesMegamenu";
 
 export default function Home() {
   const [animationStarted, setAnimationStarted] = useState(false);
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [activeHoverMenu, setActiveHoverMenu] = useState<string | null>(null);
 
   useEffect(() => {
     // Hands animation trigger
@@ -35,7 +42,10 @@ export default function Home() {
       <div className="h-screen w-screen flex flex-col justify-between relative overflow-hidden bg-white">
         
         {/* Header Navigation */}
-        <header className="w-full py-2 px-10 z-30 shrink-0 bg-transparent">
+        <header 
+          onMouseLeave={() => setActiveHoverMenu(null)}
+          className="w-full py-2 px-10 z-30 shrink-0 bg-transparent relative"
+        >
           <div className="w-full flex items-center gap-4">
 
             {/* Left Capsule (Logo, Nav links, Login) */}
@@ -61,12 +71,25 @@ export default function Home() {
                 ].map((link) => (
                   <Link
                     key={link.name}
-                    href="#"
+                    href={link.name === "PRICING" ? "/pricing" : "#"}
+                    onMouseEnter={() => {
+                      if (link.name === "SOLUTIONS") {
+                        setActiveHoverMenu("SOLUTIONS");
+                      } else if (link.name === "COMPANY") {
+                        setActiveHoverMenu("COMPANY");
+                      } else if (link.name === "PARTNERS") {
+                        setActiveHoverMenu("PARTNERS");
+                      } else if (link.name === "RESOURCES") {
+                        setActiveHoverMenu("RESOURCES");
+                      } else {
+                        setActiveHoverMenu(null);
+                      }
+                    }}
                     className="text-[13px] font-bold text-[#374b6c] hover:text-blue-600 transition-colors flex items-center gap-1.5 tracking-wider"
                   >
                     {link.name}
                     {link.hasDropdown && (
-                      <svg viewBox="0 0 24 24" className="w-3 h-3 stroke-[3.5] stroke-current fill-none">
+                      <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-[3.5] stroke-current fill-none">
                         <path d="M19 9l-7 7-7-7" />
                       </svg>
                     )}
@@ -85,12 +108,12 @@ export default function Home() {
 
             {/* Right Capsule (Book a demo & Start trial) */}
             <div className="bg-transparent py-1.5 pl-6 flex items-center gap-5 shrink-0">
-              <Link
-                href="#demo"
-                className="text-[13px] font-bold text-blue-600 hover:text-blue-700 tracking-wider"
+              <button
+                onClick={() => setIsDemoOpen(true)}
+                className="text-[13px] font-bold text-blue-600 hover:text-blue-700 tracking-wider border-none bg-transparent cursor-pointer"
               >
                 BOOK A DEMO
-              </Link>
+              </button>
               <Link
                 href="/register"
                 className="flex items-center gap-2 bg-[#004bff] hover:bg-[#003edd] text-white rounded-xl px-6 py-3 text-[12px] font-extrabold tracking-wider transition-all shadow-md shadow-blue-500/20"
@@ -103,6 +126,34 @@ export default function Home() {
             </div>
 
           </div>
+
+          {/* Solutions Megamenu Overlay */}
+          <SolutionsMegamenu 
+            isOpen={activeHoverMenu === "SOLUTIONS"} 
+            onMouseEnter={() => setActiveHoverMenu("SOLUTIONS")}
+            onMouseLeave={() => setActiveHoverMenu(null)}
+          />
+
+          {/* Company Megamenu Overlay */}
+          <CompanyMegamenu 
+            isOpen={activeHoverMenu === "COMPANY"} 
+            onMouseEnter={() => setActiveHoverMenu("COMPANY")}
+            onMouseLeave={() => setActiveHoverMenu(null)}
+          />
+
+          {/* Partners Megamenu Overlay */}
+          <PartnersMegamenu 
+            isOpen={activeHoverMenu === "PARTNERS"} 
+            onMouseEnter={() => setActiveHoverMenu("PARTNERS")}
+            onMouseLeave={() => setActiveHoverMenu(null)}
+          />
+
+          {/* Resources Megamenu Overlay */}
+          <ResourcesMegamenu 
+            isOpen={activeHoverMenu === "RESOURCES"} 
+            onMouseEnter={() => setActiveHoverMenu("RESOURCES")}
+            onMouseLeave={() => setActiveHoverMenu(null)}
+          />
         </header>
 
         {/* Left and Right Hands meeting in center (sliding together relative to the FULL VIEWPORT) */}
@@ -197,15 +248,15 @@ export default function Home() {
               className="flex flex-wrap justify-center gap-4 pt-0"
               style={{ marginTop: '24px' }}
             >
-              <Link
-                href="#demo"
-                className="border-2 border-slate-200 hover:border-slate-800 text-slate-800 rounded-full px-8 py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 transition-all"
+              <button
+                onClick={() => setIsDemoOpen(true)}
+                className="border-2 border-slate-200 hover:border-slate-800 text-slate-800 rounded-full px-8 py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 transition-all bg-transparent cursor-pointer"
               >
                 BOOK A DEMO
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-[3] stroke-current fill-none">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </Link>
+              </button>
               <Link
                 href="/register"
                 className="bg-[#004bff] hover:bg-[#003edd] text-white rounded-full px-8 py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 transition-all shadow-md shadow-blue-500/20"
@@ -318,6 +369,9 @@ export default function Home() {
 
       {/* SECTION 4: Brand Footer */}
       <Footer />
+
+      {/* SCHEDULE A DEMO POPUP MODAL */}
+      <DemoModal isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
 
     </div>
   );

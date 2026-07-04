@@ -40,7 +40,7 @@ export default function AudienceSection() {
   ];
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden select-none">
+    <section className="pt-10 pb-24 bg-white relative overflow-hidden select-none">
       {/* Decorative background shapes */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-slate-50 rounded-full blur-[120px] pointer-events-none" />
 
@@ -52,7 +52,7 @@ export default function AudienceSection() {
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
             How Can We Help <span className="text-blue-600">You?</span>
           </h2>
-          <p className="text-slate-500 text-lg font-light">
+          <p className="text-slate-700 text-lg font-normal">
             Select the path that fits your goals. We have tailor-made tools for businesses of all sizes and partner agencies.
           </p>
         </div>

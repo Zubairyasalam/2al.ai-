@@ -101,7 +101,7 @@ export default function Showcase() {
   };
 
   return (
-    <section className="pt-12 pb-24 bg-gradient-to-b from-white to-slate-50 relative overflow-hidden select-none">
+    <section className="pt-12 pb-10 bg-gradient-to-b from-white to-slate-50 relative overflow-hidden select-none">
       {/* Decorative Blur Blobs */}
       <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-100/30 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-100/30 rounded-full blur-[100px] pointer-events-none" />
@@ -449,7 +449,7 @@ export default function Showcase() {
               </div>
 
               {/* Web Hero Section */}
-              <div className="my-auto max-w-sm space-y-4 text-left z-10 relative">
+              <div className="my-auto max-w-md flex flex-col gap-3 text-left z-10 relative p-1.5">
                 {/* AI Title Highlight */}
                 <AnimatePresence>
                   {phase === 2 && (
@@ -462,7 +462,7 @@ export default function Showcase() {
                       }`}
                     >
                       <div className="absolute -top-3.5 left-2">
-                        <span className={`px-2 py-0.5 rounded-full text-[6px] font-bold uppercase tracking-wider shadow-sm text-white ${
+                        <span className={`px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider shadow-sm text-white ${
                           desktopTitleFixed ? "bg-emerald-500" : "bg-amber-400"
                         }`}>
                           {desktopTitleFixed ? "Alt Tag Added" : "Aria Landmark Missing"}
@@ -472,12 +472,12 @@ export default function Showcase() {
                   )}
                 </AnimatePresence>
 
-                <h1 className={`text-3xl font-extrabold tracking-tight transition-colors leading-tight ${
+                <h1 className={`text-4xl font-black tracking-tight transition-colors leading-tight ${
                   desktopTitleFixed ? "text-white" : "text-slate-400"
                 }`}>
                   Powerful Digital Agency
                 </h1>
-                <p className="text-[10px] text-slate-400 leading-relaxed max-w-[280px]">
+                <p className="text-xs text-slate-400 leading-relaxed max-w-[340px]">
                   Innovating branding and high-performance design to scale businesses and amplify global connectivity.
                 </p>
               </div>

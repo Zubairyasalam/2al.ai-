@@ -4,7 +4,7 @@ import prisma from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
+    const { name, email, password, website } = await req.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -34,6 +34,16 @@ export async function POST(req: Request) {
         password: hashedPassword,
       },
     });
+
+    if (website) {
+      await prisma.project.create({
+        data: {
+          userId: user.id,
+          url: website.startsWith("http") ? website : `https://${website}`,
+          name: website.replace(/^(https?:\/\/)?(www\.)?/, ""),
+        },
+      });
+    }
 
     return NextResponse.json(
       { message: "User created successfully", userId: user.id },

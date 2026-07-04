@@ -2,7 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Accessibility, Check, Star } from "lucide-react";
+import { Accessibility, Check, Star, Globe, Shield, Sparkles, Award } from "lucide-react";
+import siteConfig from "@/data/site-config.json";
+
+const colorMap = {
+  blue: { bg: "bg-blue-600", text: "text-blue-500", ping: "bg-blue-600", shadow: "shadow-blue-500/50" },
+  purple: { bg: "bg-purple-600", text: "text-purple-500", ping: "bg-purple-600", shadow: "shadow-purple-500/50" },
+  emerald: { bg: "bg-emerald-600", text: "text-emerald-500", ping: "bg-emerald-600", shadow: "shadow-emerald-500/50" },
+  indigo: { bg: "bg-indigo-600", text: "text-indigo-500", ping: "bg-indigo-600", shadow: "shadow-indigo-500/50" },
+  orange: { bg: "bg-orange-600", text: "text-orange-500", ping: "bg-orange-600", shadow: "shadow-orange-500/50" },
+};
 
 export default function TrustSection() {
   const [mounted, setMounted] = useState(false);
@@ -70,7 +79,7 @@ export default function TrustSection() {
   ];
 
   return (
-    <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
+    <section className="pt-10 pb-24 bg-slate-950 text-white relative overflow-hidden">
       {/* Background Orbs */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px]" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />
@@ -81,10 +90,10 @@ export default function TrustSection() {
         <div className="relative flex items-center justify-center h-[460px] select-none">
           
           {/* Outer dotted circular track */}
-          <div className="absolute w-[360px] h-[360px] rounded-full border border-dashed border-slate-800" />
+          <div className="absolute w-[360px] h-[360px] rounded-full border border-dashed border-white/30" />
           
           {/* Inner dotted track */}
-          <div className="absolute w-[240px] h-[240px] rounded-full border border-dashed border-slate-800" />
+          <div className="absolute w-[240px] h-[240px] rounded-full border border-dashed border-white/30" />
 
           {/* Rotating Orbit Container */}
           <motion.div
@@ -112,8 +121,19 @@ export default function TrustSection() {
                   {/* Counter-rotation to keep logo upright */}
                   <motion.div
                     animate={{ rotate: -360 }}
-                    transition={{ duration: 32, ease: "linear", repeat: Infinity }}
-                    className="w-16 h-16 rounded-full bg-white border border-slate-800 shadow-lg flex items-center justify-center p-2 text-slate-800"
+                    whileHover={{ 
+                      scale: 1.25,
+                      borderColor: "#004bff",
+                      boxShadow: "0 20px 25px -5px rgba(0, 75, 255, 0.4), 0 8px 10px -6px rgba(0, 75, 255, 0.4)",
+                      zIndex: 50
+                    }}
+                    transition={{
+                      rotate: { duration: 32, ease: "linear", repeat: Infinity },
+                      scale: { type: "spring", stiffness: 300, damping: 15 },
+                      borderColor: { duration: 0.2 },
+                      boxShadow: { duration: 0.2 }
+                    }}
+                    className="w-16 h-16 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center p-2 text-slate-800 cursor-pointer"
                   >
                     {logo.component}
                   </motion.div>
@@ -123,19 +143,20 @@ export default function TrustSection() {
           </motion.div>
 
           {/* Glowing central Accessibility Core */}
-          <div className="relative w-20 h-20 rounded-full bg-[#004bff] flex items-center justify-center text-white shadow-2xl shadow-blue-500/50 z-10 border border-blue-400/20">
-            <svg viewBox="0 0 100 100" className="w-10 h-10 text-white fill-current">
-              {/* Head */}
-              <circle cx="59.2" cy="18.9" r="7.7" />
-              {/* Wheel */}
-              <path d="M47.7,60.6 C42.1,60.6 37.1,56.1 37.1,50 C37.1,43.9 42.1,39.4 47.7,39.4 C52,39.4 55.7,42.2 57.2,46.2 L66.9,43.5 C64.2,35.4 56.6,29.7 47.7,29.7 C36.6,29.7 27.4,38.8 27.4,50 C27.4,61.2 36.6,70.3 47.7,70.3 C56.6,70.3 64.2,64.6 66.9,56.5 L57.2,53.8 C55.7,57.8 52,60.6 47.7,60.6 Z" />
-              {/* Body */}
-              <path d="M72.3,32.2 L60.6,35.4 L56.1,45.4 L59.6,52.2 L74.2,42.4 L72.3,32.2 Z" />
-              <path d="M54.5,23.5 L46.4,39.1 L51.9,49.8 L61.9,52.9 L67.4,36.5 L54.5,23.5 Z" />
-            </svg>
-            {/* Pulsing ring */}
-            <div className="absolute inset-0 rounded-full bg-[#004bff] animate-ping opacity-25" />
-          </div>
+          {(() => {
+            const theme = colorMap[siteConfig.primaryColor as keyof typeof colorMap] || colorMap.blue;
+            const Icon = siteConfig.orbitIcon === "shield" ? Shield 
+                       : siteConfig.orbitIcon === "sparkles" ? Sparkles 
+                       : siteConfig.orbitIcon === "award" ? Award 
+                       : Globe;
+            return (
+              <div className={`relative w-20 h-20 rounded-full ${theme.bg} flex items-center justify-center text-white shadow-2xl ${theme.shadow} z-10 border border-white/10`}>
+                <Icon className="w-10 h-10 text-white stroke-[2]" />
+                {/* Pulsing ring */}
+                <div className={`absolute inset-0 rounded-full ${theme.ping} animate-ping opacity-25`} />
+              </div>
+            );
+          })()}
 
         </div>
 
@@ -144,7 +165,7 @@ export default function TrustSection() {
           
           {/* Header */}
           <div className="space-y-4">
-            <span className="text-blue-500 text-xs font-bold uppercase tracking-widest">Global Compliance Standard</span>
+            <span className={`${colorMap[siteConfig.primaryColor as keyof typeof colorMap]?.text || "text-blue-500"} text-xs font-bold uppercase tracking-widest`}>Global Compliance Standard</span>
             <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
               Trusted by Businesses & Industry Leaders
             </h2>

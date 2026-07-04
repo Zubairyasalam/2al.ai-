@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { Plus, Sparkles, Accessibility } from "lucide-react";
 
+import siteConfig from "@/data/site-config.json";
+import Logo from "@/components/ui/Logo";
+
 export default function Navbar() {
   return (
     <header className="w-full pt-6 px-6">
@@ -10,13 +13,8 @@ export default function Navbar() {
         {/* Left Section: Logo + Menu Pill */}
         <div className="flex items-center gap-3">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-sm">
-              <Accessibility className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-base font-extrabold tracking-tight text-slate-900">
-              2all<span className="text-blue-600">.ai</span>
-            </span>
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
+            <Logo height={36} className="self-center" />
           </Link>
 
           {/* Plus Menu Pill */}
