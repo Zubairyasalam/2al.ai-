@@ -39,7 +39,7 @@ export default function Home() {
     <div className="min-h-screen w-full bg-white relative overflow-x-hidden selection:bg-slate-100">
       
       {/* SECTION 1: Intro Screen (First Viewport) */}
-      <div className="h-screen w-screen flex flex-col justify-between relative overflow-hidden bg-white">
+      <div className="min-h-[100dvh] w-full flex flex-col justify-between relative overflow-hidden bg-white pb-8">
         
         {/* Header Navigation */}
         <header 
