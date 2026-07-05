@@ -102,7 +102,7 @@ export default function PricingPage() {
           <div className="bg-transparent px-4 py-1.5 flex items-center justify-between flex-grow">
             <Link href="/" className="flex items-center group mr-6 shrink-0">
               <img
-                src="/images/logo.png"
+                src="/images/logo.jpeg"
                 alt="2all.ai Logo"
                 className="h-16 w-auto object-contain mix-blend-multiply"
               />

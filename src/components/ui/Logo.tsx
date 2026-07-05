@@ -11,7 +11,7 @@ export default function Logo({ className = "", height = 32 }: LogoProps) {
   return (
     <div className={`flex items-center justify-center select-none ${className}`}>
       <img 
-        src="/images/logo.png?v=2" 
+        src="/images/logo.jpeg" 
         alt="2all.ai Logo" 
         style={{ height: `${height}px`, width: "auto" }}
         className="object-contain"

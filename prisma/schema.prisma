@@ -23,6 +23,11 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      Project[]
+  domains       Domain[]
+  apiKeys       ApiKey[]
+  widgetConfigs WidgetConfig[]
+  usageLogs     UsageLog[]
+  auditLogs     AuditLog[]
 }
 
 model Account {
@@ -95,4 +100,77 @@ model Issue {
   suggestion  String?  // AI generated fix
 
   scan        Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+}
+
+model Domain {
+  id                 String    @id @default(cuid())
+  userId             String
+  websiteName        String?
+  domain             String    @unique
+  canonicalDomain    String?
+  environment        String    @default("PRODUCTION") // PRODUCTION, STAGING, DEVELOPMENT
+  status             String    @default("PENDING_VERIFICATION") // PENDING_VERIFICATION, ACTIVE, SUSPENDED
+  verified           Boolean   @default(false)
+  verificationMethod String    @default("META") // META, DNS, HTML
+  verificationToken  String    @unique
+  verifiedAt         DateTime?
+  notes              String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apiKeys            ApiKey[]
+}
+
+model ApiKey {
+  id         String   @id @default(cuid())
+  userId     String
+  name       String
+  key        String   @unique
+  status     String   @default("ACTIVE") // ACTIVE, REVOKED, EXPIRED
+  domainId   String?
+  domainName String?
+  lastUsedAt DateTime?
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime?
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  domain     Domain?  @relation(fields: [domainId], references: [id], onDelete: SetNull)
+}
+
+model WidgetConfig {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  draftConfig     String   @default("{}") // JSON string
+  publishedConfig String   @default("{}") // JSON string
+  lastPublishedAt DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UsageLog {
+  id          String   @id @default(cuid())
+  userId      String
+  domain      String
+  month       String   // e.g. "2026-07"
+  pageViews   Int      @default(0)
+  widgetLoads Int      @default(0)
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, domain, month])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String   // e.g. "CREATED_API_KEY", "VERIFIED_DOMAIN", "PUBLISHED_WIDGET"
+  details   String   // JSON or text description
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

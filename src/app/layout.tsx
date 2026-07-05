@@ -11,8 +11,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "2all.ai | AI Website Accessibility Platform",
-  description: "Modern AI Accessibility SaaS Platform to scan, monitor, and auto-fix website accessibility issues.",
+  title: "2all.ai | Next-Gen AI Web Accessibility & Compliance Platform",
+  description: "Modern AI Accessibility SaaS Platform to scan, monitor, and auto-fix website accessibility issues with dynamic floating widgets and automated WCAG 2.1 compliance.",
+  keywords: ["accessibility", "WCAG", "AI widget", "web compliance", "2all.ai", "SaaS", "disability inclusion"],
+
+  openGraph: {
+    title: "2all.ai | AI Website Accessibility Platform",
+    description: "Make any website accessible in 2 minutes with AI-powered floating widgets and WCAG monitoring.",
+    url: "https://2all.ai",
+    siteName: "2all.ai",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "2all.ai | AI Website Accessibility Platform",
+    description: "Make any website accessible in 2 minutes with AI-powered floating widgets and WCAG monitoring.",
+  },
 };
 
 export default async function RootLayout({

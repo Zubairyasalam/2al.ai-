@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Bell,
   HelpCircle,
   ChevronDown,
-  FileText,
-  Activity,
-  ShieldAlert,
-  Users,
+  LayoutDashboard,
+  Globe,
+  CreditCard,
+  BarChart3,
+  Settings,
   LogOut
 } from "lucide-react";
 import { useState } from "react";
@@ -21,7 +23,16 @@ interface HeaderProps {
 
 export default function DashboardHeader({ user }: HeaderProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const pathname = usePathname();
   const firstName = user?.name?.split(" ")[0] ?? "Zubairya";
+
+  const navItems = [
+    { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
+    { href: "/dashboard/domains", label: "My Domains", icon: Globe },
+    { href: "/dashboard/billing", label: "Billing", icon: CreditCard },
+    { href: "/dashboard/reports", label: "Reports", icon: BarChart3 },
+    { href: "/dashboard/settings", label: "Settings", icon: Settings },
+  ];
 
   return (
     <header className="sticky top-0 z-30 w-full bg-white border-b border-slate-200/80 px-6 sm:px-12 py-3.5 flex items-center justify-between select-none">
@@ -34,22 +45,24 @@ export default function DashboardHeader({ user }: HeaderProps) {
 
         {/* Navigation Items */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/dashboard" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-bold text-xs uppercase tracking-wider transition-colors">
-            <FileText className="w-4 h-4 text-slate-400" />
-            My Licenses
-          </Link>
-          <Link href="/dashboard/projects" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-bold text-xs uppercase tracking-wider transition-colors">
-            <Activity className="w-4 h-4 text-slate-400" />
-            My Services
-          </Link>
-          <Link href="/dashboard/reports" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-bold text-xs uppercase tracking-wider transition-colors">
-            <ShieldAlert className="w-4 h-4 text-slate-400" />
-            My Audits
-          </Link>
-          <Link href="/dashboard/partners" className="flex items-center gap-2 text-slate-600 hover:text-blue-600 font-bold text-xs uppercase tracking-wider transition-colors">
-            <Users className="w-4 h-4 text-slate-400" />
-            Partners
-          </Link>
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = item.exact ? pathname === item.href : pathname?.startsWith(item.href);
+            return (
+              <Link 
+                key={item.href} 
+                href={item.href} 
+                className={`flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider transition-colors ${
+                  isActive 
+                    ? "text-blue-600 bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-100" 
+                    : "text-slate-600 hover:text-blue-600"
+                }`}
+              >
+                <Icon className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
 

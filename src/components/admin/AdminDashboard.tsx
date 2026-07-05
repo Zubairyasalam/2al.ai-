@@ -32,9 +32,12 @@ import {
   FileCode,
   Eye,
   Menu,
-  Loader2
+  Loader2,
+  KeyRound
 } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import DomainOnboarding from "@/components/dashboard/DomainOnboarding";
+import AdminApiKeysPanel from "@/components/admin/AdminApiKeysPanel";
 
 interface UserType {
   id: string;
@@ -77,17 +80,45 @@ interface ConfigType {
 interface DashboardProps {
   initialUsers: UserType[];
   initialProjects: ProjectType[];
+  initialDomains?: any[];
   initialConfig: ConfigType;
   currentUser?: { name?: string | null; email?: string | null };
+  initialTab?: string;
 }
 
 export default function AdminDashboard({
   initialUsers,
   initialProjects,
+  initialDomains = [],
   initialConfig,
-  currentUser
+  currentUser,
+  initialTab = "overview"
 }: DashboardProps) {
-  const [activeTab, setActiveTab] = useState<string>("overview");
+  const [activeTab, setActiveTab] = useState<string>(initialTab);
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (tabId === "overview") {
+        url.searchParams.delete("tab");
+      } else {
+        url.searchParams.set("tab", tabId);
+      }
+      window.history.pushState({}, "", url.toString());
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get("tab");
+      if (tab && tab !== activeTab) {
+        setActiveTab(tab);
+      }
+    }
+  }, []);
+
   const [users, setUsers] = useState<UserType[]>(initialUsers);
   const [projects, setProjects] = useState<ProjectType[]>(initialProjects);
   const [config, setConfig] = useState<ConfigType>(initialConfig);
@@ -215,12 +246,14 @@ export default function AdminDashboard({
               { id: "overview", label: "Overview Panel", icon: LayoutGrid },
               { id: "users", label: "User Database", icon: UserCog },
               { id: "payments", label: "Payments Gateway", icon: CreditCard },
+              { id: "domains", label: "Customer Workspace", icon: Globe },
+              { id: "api-keys", label: "API Keys Console", icon: KeyRound },
             ].map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-xs font-black transition-all cursor-pointer border-none ${activeTab === tab.id
                       ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                       : "bg-transparent text-slate-600 hover:text-blue-600 hover:bg-blue-50/50"
@@ -256,7 +289,7 @@ export default function AdminDashboard({
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-left text-xs font-black transition-all cursor-pointer border-none ${activeTab === tab.id
                       ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                       : "bg-transparent text-slate-600 hover:text-blue-600 hover:bg-blue-50/50"
@@ -915,6 +948,16 @@ export default function AdminDashboard({
                 </div>
               )}
             </div>
+          )}
+
+          {/* TAB: DOMAINS (CUSTOMER WORKSPACE INVENTORY) */}
+          {activeTab === "domains" && (
+            <DomainOnboarding initialDomains={initialDomains} userName={currentUser?.name || "Admin"} isAdmin={true} />
+          )}
+
+          {/* TAB: API KEYS CONSOLE */}
+          {activeTab === "api-keys" && (
+            <AdminApiKeysPanel />
           )}
 
           {/* OTHER MOCK BUILDER MODULES */}

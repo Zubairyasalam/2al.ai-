@@ -95,7 +95,7 @@ function CheckoutContent() {
         currency: orderInfo.currency,
         name: "2all.ai",
         description: `2all.ai ${plan.toUpperCase()} Subscription Plan`,
-        image: "/images/logo.png",
+        image: "/images/logo.jpeg",
         order_id: orderInfo.orderId,
         handler: async function (response: any) {
           setVerifying(true);

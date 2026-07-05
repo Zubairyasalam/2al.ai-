@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { signIn } from "next-auth/react";
 import Logo from "@/components/ui/Logo";
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
@@ -293,29 +293,17 @@ export default function RegisterPage() {
                     </div>
                   )}
 
-                  {/* Google OAuth Login Option */}
+                  {/* Continue with Google */}
                   <button
                     type="button"
+                    onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
                     className="w-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all text-sm cursor-pointer"
                   >
-                    {/* Google G Logo SVG */}
                     <svg className="w-4 h-4" viewBox="0 0 24 24">
-                      <path
-                        fill="#EA4335"
-                        d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582l3.51-3.51C17.842 1.091 15.114 0 12 0 7.354 0 3.327 2.673 1.341 6.577l3.925 3.188z"
-                      />
-                      <path
-                        fill="#34A853"
-                        d="M16.04 15.345c-1.07.728-2.43 1.164-4.04 1.164a7.077 7.077 0 0 1-6.75-4.909l-3.925 3.188c1.986 3.905 6.013 6.577 10.675 6.577 3.09 0 5.864-1.036 7.84-2.827l-3.8-2.993z"
-                      />
-                      <path
-                        fill="#4285F4"
-                        d="M23.864 12.273c0-.818-.073-1.636-.218-2.427H12v4.61h6.654a5.69 5.69 0 0 1-2.463 3.73l3.8 2.993c2.218-2.045 4.318-5.073 4.318-8.906z"
-                      />
-                      <path
-                        fill="#FBBC05"
-                        d="M5.25 12c0-.527.09-1.036.25-1.527L1.575 7.285A11.954 11.954 0 0 0 0 12c0 1.68.345 3.28.97 4.736l3.913-3.18c-.16-.49-.25-.99-.25-1.556z"
-                      />
+                      <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582l3.51-3.51C17.842 1.091 15.114 0 12 0 7.354 0 3.327 2.673 1.341 6.577l3.925 3.188z" />
+                      <path fill="#34A853" d="M16.04 15.345c-1.07.728-2.43 1.164-4.04 1.164a7.077 7.077 0 0 1-6.75-4.909l-3.925 3.188c1.986 3.905 6.013 6.577 10.675 6.577 3.09 0 5.864-1.036 7.84-2.827l-3.8-2.993z" />
+                      <path fill="#4285F4" d="M23.864 12.273c0-.818-.073-1.636-.218-2.427H12v4.61h6.654a5.69 5.69 0 0 1-2.463 3.73l3.8 2.993c2.218-2.045 4.318-5.073 4.318-8.906z" />
+                      <path fill="#FBBC05" d="M5.25 12c0-.527.09-1.036.25-1.527L1.575 7.285A11.954 11.954 0 0 0 0 12c0 1.68.345 3.28.97 4.736l3.913-3.18c-.16-.49-.25-.99-.25-1.556z" />
                     </svg>
                     Continue with Google
                   </button>
@@ -527,5 +515,13 @@ export default function RegisterPage() {
       </div>
 
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-blue-600" /></div>}>
+      <RegisterForm />
+    </Suspense>
   );
 }

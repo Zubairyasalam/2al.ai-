@@ -222,23 +222,23 @@ export default async function DashboardPage() {
         </div>
 
         {/* Partner Program Card */}
-        <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 relative overflow-hidden shadow-lg border border-slate-800 select-none">
-          {/* Accent glow */}
-          <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-xl pointer-events-none" />
+        <div className="bg-white border border-slate-200/80 rounded-3xl p-6 relative overflow-hidden shadow-sm select-none hover:shadow-md hover:border-slate-300 transition-all">
+          {/* Subtle blue accent gradient at top right */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/80 rounded-full blur-2xl pointer-events-none -mr-10 -mt-10" />
           
-          <span className="px-2.5 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-[9px] font-black text-blue-400 tracking-wider uppercase inline-block mb-4">
+          <span className="px-2.5 py-1 bg-blue-50 border border-blue-100 rounded-full text-[9px] font-black text-[#0052ff] tracking-wider uppercase inline-block mb-4">
             2all.ai | Partner
           </span>
 
-          <h3 className="text-base font-black leading-snug tracking-tight mb-2">
+          <h3 className="text-base font-black text-slate-800 leading-snug tracking-tight mb-2 relative z-10">
             Agency? Freelancer? Join our partner program!
           </h3>
           
-          <p className="text-slate-400 text-[10px] font-medium leading-relaxed mb-6">
+          <p className="text-slate-500 text-[11px] font-medium leading-relaxed mb-6 relative z-10">
             Build or manage websites for a living? Our partner program is made for you.
           </p>
 
-          <button className="w-full py-2.5 border border-white/20 hover:border-white text-white font-extrabold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1 hover:bg-white/5 cursor-pointer uppercase tracking-wider bg-transparent">
+          <button className="w-full py-2.5 border border-slate-200 hover:border-[#0052ff] text-slate-700 hover:text-[#0052ff] font-extrabold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1 hover:bg-blue-50/50 cursor-pointer uppercase tracking-wider bg-slate-50 relative z-10 shadow-xs">
             Partner Program Overview
             <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>

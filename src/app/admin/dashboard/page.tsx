@@ -5,7 +5,9 @@ import { promises as fs } from "fs";
 import path from "path";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 
-export default async function AdminDashboardPage() {
+export default async function AdminDashboardPage(props: { searchParams?: Promise<{ tab?: string }> }) {
+  const searchParams = await props.searchParams;
+  const tab = searchParams?.tab || "overview";
   const session = await auth();
 
   // Auth check — only ADMIN or SUPER_ADMIN can access
@@ -16,22 +18,85 @@ export default async function AdminDashboardPage() {
     redirect("/admin/login");
   }
 
-  // Fetch telemetry data
-  const users = await prisma.user.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  // Fetch telemetry data with safety fallbacks for HMR dev reloading
+  let users: any[] = [];
+  let projects: any[] = [];
+  let domains: any[] = [];
 
-  const projects = await prisma.project.findMany({
-    orderBy: { createdAt: "desc" },
-    include: {
-      user: {
-        select: {
-          name: true,
-          email: true,
+  try {
+    users = await prisma.user.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+
+    projects = await prisma.project.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
         },
       },
-    },
-  });
+    });
+  } catch (err) {
+    console.warn("Could not query users/projects:", err);
+  }
+
+  try {
+    if ((prisma as any).domain) {
+      domains = await (prisma as any).domain.findMany({
+        orderBy: { createdAt: "desc" },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              apiKeys: { select: { id: true, status: true } },
+              widgetConfigs: { select: { id: true, publishedConfig: true, draftConfig: true } },
+            },
+          },
+        },
+      });
+
+      if (domains.length === 0 && projects.length > 0) {
+        for (const proj of projects) {
+          let cleanDomain = proj.url?.trim().toLowerCase() || "";
+          cleanDomain = cleanDomain.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/.*$/, "");
+          if (cleanDomain && !domains.some((d: any) => d.domain === cleanDomain)) {
+            try {
+              const created = await (prisma as any).domain.create({
+                data: {
+                  userId: proj.userId || (users.length > 0 ? users[0].id : ""),
+                  domain: cleanDomain,
+                  verificationToken: `2all-verify=${Math.random().toString(36).substring(2, 15)}`,
+                  status: "VERIFIED",
+                  verifiedAt: new Date(),
+                },
+                include: {
+                  user: {
+                    select: {
+                      id: true,
+                      name: true,
+                      email: true,
+                      apiKeys: { select: { id: true, status: true } },
+                      widgetConfigs: { select: { id: true, publishedConfig: true, draftConfig: true } },
+                    },
+                  },
+                },
+              });
+              domains.push(created);
+            } catch (e) {
+              console.warn("Could not sync project to domain:", e);
+            }
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("Could not query domains table:", err);
+  }
 
   // Read current site configuration
   let config = {
@@ -66,8 +131,10 @@ export default async function AdminDashboardPage() {
       <AdminDashboard
         initialUsers={users as any}
         initialProjects={projects as any}
+        initialDomains={domains as any}
         initialConfig={config}
         currentUser={user as any}
+        initialTab={tab}
       />
     </div>
   );

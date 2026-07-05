@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { Eye, EyeOff, Loader2, ChevronRight } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan");
@@ -81,8 +81,8 @@ export default function LoginPage() {
           {/* Continue with Google */}
           <button
             type="button"
-            onClick={() => alert("Google login not implemented yet.")}
-            className="w-full flex items-center justify-center gap-2.5 border border-slate-200/85 hover:bg-slate-50 text-slate-700 bg-white rounded-xl py-3 text-xs font-extrabold tracking-wider uppercase transition-all cursor-pointer"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            className="w-full flex items-center justify-center gap-2.5 border border-slate-200/85 hover:bg-slate-50 text-slate-700 bg-white rounded-xl py-3 text-xs font-extrabold tracking-wider uppercase transition-all cursor-pointer shadow-sm"
           >
             <svg className="w-4.5 h-4.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -190,5 +190,13 @@ export default function LoginPage() {
       </motion.div>
 
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-blue-600" /></div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

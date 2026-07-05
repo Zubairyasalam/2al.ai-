@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="50%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1e1b4b" flood-opacity="0.4" />
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#blueGrad)" filter="url(#shadow)" />
+  
+  <!-- Outer Accessibility Circle -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#ffffff" stroke-width="24" stroke-linecap="round" stroke-dasharray="880" stroke-dashoffset="0" opacity="0.9" />
+  
+  <!-- Stylized accessibility figure / '2A' emblem -->
+  <circle cx="256" cy="160" r="32" fill="#ffffff" />
+  <path d="M176 232 C 216 220, 296 220, 336 232 L 320 320 C 300 320, 280 320, 276 380 L 268 400 C 264 416, 248 416, 244 400 L 236 380 C 232 320, 212 320, 192 320 Z" fill="#ffffff" />
+  
+  <!-- Dynamic AI Sparkles -->
+  <path d="M380 120 L390 145 L415 155 L390 165 L380 190 L370 165 L345 155 L370 145 Z" fill="#60a5fa" opacity="0.9" />
+  <path d="M130 360 L136 375 L151 381 L136 387 L130 402 L124 387 L109 381 L124 375 Z" fill="#a78bfa" opacity="0.9" />
+</svg>
