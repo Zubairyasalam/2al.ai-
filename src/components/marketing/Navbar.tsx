@@ -8,10 +8,10 @@ import Logo from "@/components/ui/Logo";
 
 export default function Navbar() {
   return (
-    <header className="w-full pt-6 px-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <header className="w-full pt-6 px-4 md:px-6">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
         {/* Left Section: Logo + Menu Pill */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <Logo height={36} className="self-center" />

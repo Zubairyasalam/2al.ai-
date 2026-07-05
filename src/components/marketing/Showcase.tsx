@@ -118,7 +118,7 @@ export default function Showcase() {
         </div>
 
         {/* Presentation Stage */}
-        <div className="relative w-full h-[620px] flex items-center justify-center overflow-visible">
+        <div className="relative w-full h-[620px] flex items-center justify-center overflow-hidden">
           
           {/* ======================================================== */}
           {/* SCREEN 1: MOBILE SCANNER (Index 1)                      */}
@@ -244,7 +244,7 @@ export default function Showcase() {
           <motion.div
             animate={getScreenStyles(0)}
             transition={{ type: "spring", stiffness: 70, damping: 18 }}
-            className="absolute w-[680px] h-[460px] bg-slate-950/40 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between"
+            className="absolute w-[95vw] md:w-[680px] h-[460px] bg-slate-950/40 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between"
           >
             {/* Header Address Bar */}
             <div className="px-6 py-3 bg-slate-900/80 border-b border-slate-800 flex items-center justify-between shrink-0">
@@ -414,7 +414,7 @@ export default function Showcase() {
           <motion.div
             animate={getScreenStyles(2)}
             transition={{ type: "spring", stiffness: 70, damping: 18 }}
-            className="absolute w-[680px] h-[460px] bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between"
+            className="absolute w-[95vw] md:w-[680px] h-[460px] bg-white border border-slate-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between"
           >
             {/* Header Address Bar */}
             <div className="px-6 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between shrink-0">

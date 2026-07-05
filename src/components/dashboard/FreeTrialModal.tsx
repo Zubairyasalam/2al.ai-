@@ -41,7 +41,7 @@ export default function FreeTrialModal() {
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden flex flex-col md:flex-row">
         
         {/* LEFT: Form Panel */}
-        <div className="flex-1 p-8 md:p-10 text-left">
+        <div className="flex-1 p-6 md:p-10 text-left">
           {/* Logo + Close */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">

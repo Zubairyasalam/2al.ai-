@@ -1174,8 +1174,8 @@ export default function DomainDetails({ domain: initialDomain, userName }: Domai
                   <p className="text-[10px] text-slate-300 mt-1">Logs appear once the widget receives its first bootstrap request.</p>
                 </div>
               ) : (
-                <div className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden">
-                  <table className="w-full text-left border-collapse">
+                <div className="bg-white border border-slate-200/80 rounded-2xl overflow-x-auto">
+                  <table className="w-full text-left border-collapse min-w-[500px]">
                     <thead>
                       <tr className="border-b border-slate-100 text-[10px] font-black text-slate-400 uppercase tracking-wider">
                         <th className="px-5 py-3">Action</th>

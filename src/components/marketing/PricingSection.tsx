@@ -69,7 +69,7 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: plan.delay }}
               whileHover={{ y: -8 }}
-              className={`relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 cursor-pointer bg-white border ${
+              className={`relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 cursor-pointer bg-white border ${
                 plan.isRecommended
                   ? "border-[#004bff] shadow-xl shadow-blue-500/5 ring-1 ring-[#004bff]/20"
                   : "border-slate-200/80 hover:border-slate-300 shadow-sm hover:shadow-md"

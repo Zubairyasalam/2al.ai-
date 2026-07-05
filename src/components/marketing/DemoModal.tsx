@@ -70,7 +70,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="bg-white border border-slate-100 rounded-3xl shadow-2xl p-8 max-w-md w-full mx-4 relative z-10 text-left select-none"
+            className="bg-white border border-slate-100 rounded-3xl shadow-2xl p-6 sm:p-8 max-w-md w-full mx-4 relative z-10 text-left select-none"
           >
             {/* Close Button */}
             <button
@@ -153,8 +153,8 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                   <label className="block text-[11px] font-black text-slate-500 uppercase tracking-wider">
                     Phone number <span className="text-red-500 font-bold">*</span>
                   </label>
-                  <div className="grid grid-cols-12 gap-3">
-                    <div className="col-span-5 relative">
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-3">
+                    <div className="sm:col-span-5 relative">
                       <select
                         value={phonePrefix}
                         onChange={(e) => setPhonePrefix(e.target.value)}
@@ -166,7 +166,7 @@ export default function DemoModal({ isOpen, onClose }: DemoModalProps) {
                         <option value="+61">Australia</option>
                       </select>
                     </div>
-                    <div className="col-span-7">
+                    <div className="sm:col-span-7">
                       <input
                         type="tel"
                         required

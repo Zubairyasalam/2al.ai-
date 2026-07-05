@@ -245,12 +245,12 @@ export default function Home() {
             </p>
 
             <div 
-              className="flex flex-wrap justify-center gap-4 pt-0"
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 pt-0 w-full px-4 sm:px-0"
               style={{ marginTop: '24px' }}
             >
               <button
                 onClick={() => setIsDemoOpen(true)}
-                className="border-2 border-slate-200 hover:border-slate-800 text-slate-800 rounded-full px-8 py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 transition-all bg-transparent cursor-pointer"
+                className="w-full sm:w-auto justify-center border-2 border-slate-200 hover:border-slate-800 text-slate-800 rounded-full px-6 py-3 md:px-8 md:py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all bg-transparent cursor-pointer"
               >
                 BOOK A DEMO
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-[3] stroke-current fill-none">
@@ -259,7 +259,7 @@ export default function Home() {
               </button>
               <Link
                 href="/register"
-                className="bg-[#004bff] hover:bg-[#003edd] text-white rounded-full px-8 py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 transition-all shadow-md shadow-blue-500/20"
+                className="w-full sm:w-auto justify-center bg-[#004bff] hover:bg-[#003edd] text-white rounded-full px-6 py-3 md:px-8 md:py-3.5 text-xs md:text-sm font-extrabold tracking-wider uppercase flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md shadow-blue-500/20"
               >
                 START FREE TRIAL
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 stroke-[3] stroke-current fill-none">

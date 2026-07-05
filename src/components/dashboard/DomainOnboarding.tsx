@@ -504,8 +504,8 @@ export default function DomainOnboarding({
           </div>
         </div>
 
-        <div className="mt-6">
-          <table className="w-full text-left border-collapse">
+        <div className="mt-6 overflow-x-auto w-full">
+          <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
               <tr className="border-b border-slate-200 text-[11px] font-black tracking-wider text-slate-400 uppercase">
                 <th className="pb-3 pr-4">Domain</th>

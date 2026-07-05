@@ -30,18 +30,18 @@ export default function CloseGapsBanner() {
 
           {/* Right Input Form */}
           <form onSubmit={handleSubmit} className="w-full lg:max-w-md shrink-0">
-            <div className="relative border border-white/30 rounded-full p-2 flex items-center justify-between bg-[#004bff] shadow-inner focus-within:border-white/60 transition-colors">
+            <div className="relative border border-white/30 rounded-[24px] sm:rounded-full p-2 flex flex-col sm:flex-row items-center justify-between bg-[#004bff] shadow-inner focus-within:border-white/60 transition-colors gap-2 sm:gap-0">
               <input
                 type="text"
                 placeholder="https://yoursite.com"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full bg-transparent border-none text-white placeholder-white/60 text-sm md:text-base font-extrabold focus:outline-none focus:ring-0 pl-6 pr-4"
+                className="w-full bg-transparent border-none text-white placeholder-white/60 text-sm md:text-base font-extrabold focus:outline-none focus:ring-0 px-4 py-2 sm:py-0 text-center sm:text-left"
               />
               
               <button
                 type="submit"
-                className="bg-white hover:bg-slate-50 text-[#004bff] rounded-full px-6 py-3.5 text-xs md:text-sm font-black tracking-wider uppercase flex items-center gap-2 transition-all shadow-md hover:scale-103 shrink-0"
+                className="w-full sm:w-auto justify-center bg-white hover:bg-slate-50 text-[#004bff] rounded-full px-6 py-3.5 text-xs md:text-sm font-black tracking-wider uppercase flex items-center gap-2 transition-all shadow-md hover:scale-[1.03] shrink-0"
               >
                 GET AUDIT
                 <ArrowRight className="w-4 h-4 text-[#004bff] stroke-[3]" />

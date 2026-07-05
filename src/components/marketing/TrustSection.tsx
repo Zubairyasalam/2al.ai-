@@ -87,7 +87,7 @@ export default function TrustSection() {
       <div className="max-w-7xl mx-auto px-6 sm:px-12 grid lg:grid-cols-2 gap-16 items-center">
         
         {/* LEFT COLUMN: Rotating Logo Orbit Wheel */}
-        <div className="relative flex items-center justify-center h-[460px] select-none">
+        <div className="relative flex items-center justify-center h-[460px] select-none scale-75 sm:scale-100">
           
           {/* Outer dotted circular track */}
           <div className="absolute w-[360px] h-[360px] rounded-full border border-dashed border-white/30" />
@@ -175,7 +175,7 @@ export default function TrustSection() {
           </div>
 
           {/* Grid Stats */}
-          <div className="grid grid-cols-3 gap-6 border-y border-slate-800 py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 border-y border-slate-800 py-8">
             {[
               { val: "100%", label: "Response rate" },
               { val: "120x", label: "ROI" },

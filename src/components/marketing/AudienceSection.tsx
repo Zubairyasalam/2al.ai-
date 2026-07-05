@@ -66,7 +66,7 @@ export default function AudienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`bg-gradient-to-br ${card.bgGradient} border border-slate-200/60 rounded-[32px] p-8 md:p-10 flex flex-col justify-between transition-all duration-300 ${card.borderHover} hover:-translate-y-1.5 shadow-sm hover:shadow-xl`}
+              className={`bg-gradient-to-br ${card.bgGradient} border border-slate-200/60 rounded-[32px] p-6 sm:p-8 md:p-10 flex flex-col justify-between transition-all duration-300 ${card.borderHover} hover:-translate-y-1.5 shadow-sm hover:shadow-xl`}
             >
               <div className="space-y-6">
                 {/* Header Row */}

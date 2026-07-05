@@ -35,7 +35,8 @@ export default function DashboardHeader({ user }: HeaderProps) {
   ];
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-white border-b border-slate-200/80 px-6 sm:px-12 py-3.5 flex items-center justify-between select-none">
+    <div className="sticky top-0 z-30 w-full flex flex-col">
+      <header className="w-full bg-white border-b border-slate-200/80 px-4 sm:px-12 py-3.5 flex items-center justify-between select-none">
 
       {/* LEFT: Logo & Main Nav */}
       <div className="flex items-center gap-10">
@@ -117,6 +118,29 @@ export default function DashboardHeader({ user }: HeaderProps) {
 
       </div>
 
-    </header>
+      </header>
+
+      {/* Mobile Nav Row */}
+      <nav className="md:hidden flex items-center gap-6 px-4 py-3 bg-slate-50 border-b border-slate-200/80 overflow-x-auto no-scrollbar w-full shadow-inner select-none">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = item.exact ? pathname === item.href : pathname?.startsWith(item.href);
+          return (
+            <Link 
+              key={item.href} 
+              href={item.href} 
+              className={`flex flex-col items-center gap-1.5 font-extrabold text-[10px] uppercase tracking-wider transition-colors shrink-0 ${
+                isActive 
+                  ? "text-blue-600" 
+                  : "text-slate-500 hover:text-blue-600"
+              }`}
+            >
+              <Icon className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
   );
 }
