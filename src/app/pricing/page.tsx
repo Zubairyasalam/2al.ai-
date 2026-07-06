@@ -14,7 +14,9 @@ import {
   Sparkles,
   Info,
   DollarSign,
-  Star
+  Star,
+  Menu,
+  X
 } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Footer from "@/components/marketing/Footer";
@@ -29,6 +31,7 @@ export default function PricingPage() {
   const [activeHoverMenu, setActiveHoverMenu] = useState<string | null>(null);
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("yearly");
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleFaq = (index: number) => {
     if (activeFaq === index) {
@@ -146,29 +149,38 @@ export default function PricingPage() {
 
             <Link
               href="/login"
-              className="text-[13px] font-bold text-[#0a1e3f] hover:text-blue-600 tracking-wider mr-2"
+              className="hidden md:block text-[13px] font-bold text-[#0a1e3f] hover:text-blue-600 tracking-wider mr-2"
             >
               LOGIN
             </Link>
           </div>
 
           {/* Right Capsule */}
-          <div className="bg-transparent py-1.5 pl-6 flex items-center gap-5 shrink-0">
+          <div className="bg-transparent py-1.5 md:pl-6 flex items-center gap-2 sm:gap-3 md:gap-5 shrink-0">
             <button
               onClick={() => setIsDemoOpen(true)}
-              className="text-[13px] font-bold text-blue-600 hover:text-blue-700 tracking-wider border-none bg-transparent cursor-pointer"
+              className="hidden md:block text-[13px] font-bold text-blue-600 hover:text-blue-700 tracking-wider border-none bg-transparent cursor-pointer"
             >
               BOOK A DEMO
             </button>
             <Link
               href="/register"
-              className="flex items-center gap-2 bg-[#004bff] hover:bg-[#003edd] text-white rounded-xl px-6 py-3 text-[12px] font-extrabold tracking-wider transition-all shadow-md shadow-blue-500/20"
+              className="flex items-center gap-1 md:gap-2 bg-[#004bff] hover:bg-[#003edd] text-white rounded-xl px-3.5 sm:px-4 md:px-6 py-2 md:py-3 text-[10px] md:text-[12px] font-extrabold tracking-wider transition-all shadow-md shadow-blue-500/20 whitespace-nowrap"
             >
-              START FREE TRIAL
+              <span className="hidden sm:inline">START FREE TRIAL</span>
+              <span className="sm:hidden">START TRIAL</span>
               <svg viewBox="0 0 24 24" className="w-3 h-3 stroke-[3] stroke-current fill-none">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg border border-slate-200/60 bg-slate-50 text-slate-700 hover:bg-slate-100 active:bg-slate-200 transition-colors shadow-sm"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5 stroke-[2]" /> : <Menu className="w-5 h-5 stroke-[2]" />}
+            </button>
           </div>
 
         </div>
@@ -194,6 +206,52 @@ export default function PricingPage() {
           onMouseEnter={() => setActiveHoverMenu("RESOURCES")}
           onMouseLeave={() => setActiveHoverMenu(null)}
         />
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-white shadow-lg shadow-slate-200/50 border-t border-slate-100 lg:hidden flex flex-col py-6 px-6 gap-6 z-50">
+            <nav className="flex flex-col gap-5">
+              {[
+                { name: "SOLUTIONS", href: "#" },
+                { name: "COMPANY", href: "#" },
+                { name: "PARTNERS", href: "#" },
+                { name: "RESOURCES", href: "#" },
+                { name: "PRICING", href: "/pricing" },
+              ].map((link) => (
+                <button
+                  key={link.name}
+                  onClick={() => {
+                    if (["SOLUTIONS", "COMPANY", "PARTNERS", "RESOURCES"].includes(link.name)) {
+                      setActiveHoverMenu(link.name);
+                      setIsMobileMenuOpen(false);
+                    } else {
+                      window.location.href = link.href;
+                    }
+                  }}
+                  className="text-[14px] font-bold text-[#374b6c] hover:text-blue-600 transition-colors text-left"
+                >
+                  {link.name}
+                </button>
+              ))}
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-[14px] font-bold text-[#0a1e3f] hover:text-blue-600 border-t border-slate-100 pt-5 mt-2"
+              >
+                LOGIN
+              </Link>
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsDemoOpen(true);
+                }}
+                className="text-left text-[14px] font-bold text-blue-600 hover:text-blue-700"
+              >
+                BOOK A DEMO
+              </button>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* TITLE & TOGGLES */}
